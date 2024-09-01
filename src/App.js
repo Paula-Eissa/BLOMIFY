@@ -15,8 +15,10 @@ import Contactus from "./Components/Contactus/Contactus.jsx";
 import Product from "./Components/Product/Product.jsx";
 import ProductDetails from "./Components/ProductDetails/ProductDetails.jsx";
 import { useContext, useEffect } from "react";
-import toast, {Toaster} from "react-hot-toast";
-
+import { Toaster } from "react-hot-toast";
+import Profile from "./Components/Profile/Profile.jsx";
+import Address from "./Components/Address/Address.jsx";
+import Payment from "./Components/Payment/Payment.jsx";
 
 let router = createBrowserRouter([
   {
@@ -25,19 +27,11 @@ let router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-
-            <Home />
-
-        ),
+        element: <Home />,
       },
       {
         path: "products",
-        element: (
-
-            <Product />
-
-        ),
+        element: <Product />,
       },
       {
         path: "/productsDetails/:id",
@@ -51,31 +45,44 @@ let router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "payment",
+        element: (
+          <ProtectedRoute>
+            <Payment />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "address",
+        element: (
+          <ProtectedRoute>
+            <Address />
+          </ProtectedRoute>
+        ),
+      },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
       {
         path: "occasion",
-        element: (
-
-            <Occasion />
-
-        ),
+        element: <Occasion />,
       },
       {
         path: "about",
-        element: (
-
-            <About />
-
-        ),
+        element: <About />,
       },
       {
         path: "contactus",
-        element: (
-
-            <Contactus />
-
-        ),
+        element: <Contactus />,
       },
       { path: "*", element: <NotFound /> },
     ],
@@ -84,20 +91,19 @@ let router = createBrowserRouter([
 
 export default function App() {
   //keep the token when the user refresh the page
-  let {setUserToken} = useContext(UserContext);
-    useEffect(()=>{
-      if(localStorage.getItem("userToken") !== null){
-        setUserToken(localStorage.getItem("userToken"));
-      }
-    },[]);
+  let { setUserToken } = useContext(UserContext);
+  useEffect(() => {
+    if (localStorage.getItem("userToken") !== null) {
+      setUserToken(localStorage.getItem("userToken"));
+    }
+  }, []);
 
   return (
     <UserContxtProvider>
       <CounterContextProvider>
         <RouterProvider router={router}></RouterProvider>
-        <Toaster/>
+        <Toaster />
       </CounterContextProvider>
-      
     </UserContxtProvider>
   );
 }

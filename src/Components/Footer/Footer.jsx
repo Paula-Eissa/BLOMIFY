@@ -15,8 +15,6 @@
 const Footer = () => {
   return (
     <>
-      <div className="min-h-screen flex flex-col">
-        <div className="flex-grow"></div>
 
         <footer className="bg-zinc-50 text-center text-surface bg-dusty-mauve mt-10 dark:text-white rounded-t-3xl">
           <div className="container px-6 pt-6">
@@ -81,7 +79,6 @@ const Footer = () => {
             </a>
           </div>
         </footer>
-      </div>
     </>
   );
 };

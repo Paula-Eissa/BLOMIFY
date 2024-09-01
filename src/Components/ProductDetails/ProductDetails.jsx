@@ -155,7 +155,7 @@ export default function ProductDetails() {
                 <h4 className="text-lg font-semibold text-yellow-600 mb-4">{product.price} EGP</h4>
                 <button
                   onClick={() => addCart(product)}
-                  className="bg-deep-burgundy text-white rounded-full py-2 px-4 mt-4 hover:bg-dusty-mauve transition"
+                  className="bg-deep-burgundy text-white rounded-tr-full rounded-bl-full py-2 px-8 mt-4 hover:bg-dusty-mauve transition"
                 >
                   Add to cart
                 </button>
