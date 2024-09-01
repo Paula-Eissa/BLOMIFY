@@ -9,7 +9,6 @@ import NotFound from "./Components/Notfound/NotFound.jsx";
 import CounterContextProvider from "./Context/CounterContext.js";
 import UserContxtProvider, { UserContext } from "./Context/UserContext.js";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute.jsx";
-// import FeaturedProducts from "./Components/FeaturedProducts/FeaturedProducts.jsx";
 import Occasion from "./Components/Occasion/Occasion.jsx";
 import About from "./Components/About/About.jsx";
 import Contactus from "./Components/Contactus/Contactus.jsx";
