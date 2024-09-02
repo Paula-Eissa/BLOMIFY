@@ -1,0 +1,37 @@
+[{
+  "name":["New Year's Day",true],
+  "quantity": 100, 
+  "date": "January 1",
+  "progress": 17.5  
+},
+{
+  "name":["Valentine's Day",true],
+  "quantity": 150, 
+  "date": "February 14",
+  "progress": 21.3  
+},
+{
+  "name":["International Women's Day",true],
+  "quantity": 858, 
+  "date": "March 8",
+  "progress": 31.5  
+},
+{
+  "name":["Mother's Day",true],
+  "quantity": 120, 
+  "date": "March 21",
+  "progress": 12.2  
+},
+{
+  "name":["Graduation Season",true],
+  "quantity": 100, 
+  "date": "May to June",
+  "progress": 12.2  
+},
+{
+  "name":["Christmas",true],
+  "quantity": 90, 
+  "date": "December 25",
+  "progress": 12.2  
+}
+]
