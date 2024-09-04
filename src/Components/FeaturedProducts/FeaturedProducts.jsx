@@ -85,46 +85,48 @@ export default function Occasion() {
 
   useEffect(() => {
     if (userId) {
-        const saveCartToFirebase = async () => {
-            try {
-                const cartRef = doc(db, "carts", userId);
-                await setDoc(cartRef, { items: cartItems });
-                console.log("Cart saved to Firebase");
-            } catch (error) {
-                console.error("Error saving cart to Firebase:", error);
-            }
-        };
-
-        saveCartToFirebase();
+      const saveCartToFirebase = async () => {
+        try {
+          const cartRef = doc(db, "carts", userId);
+          await setDoc(cartRef, { items: cartItems });
+        } catch (error) {
+          console.error("Error saving cart to Firebase:", error);
+        }
+      };
+  
+      const debounceSave = setTimeout(() => saveCartToFirebase(), 1000);
+      return () => clearTimeout(debounceSave);
     }
   }, [cartItems, userId]);
-
+  
   useEffect(() => {
-      if (userId) {
-          const loadCartFromFirebase = async () => {
-              try {
-                  const cartRef = doc(db, "carts", userId);
-                  const cartDoc = await getDoc(cartRef);
-                  if (cartDoc.exists()) {
-                      const cartData = cartDoc.data();
-                      dispatch(setCartItems(cartData.items || []));
-                      console.log("Cart loaded from Firebase");
-                  } else {
-                      console.log("No cart found in Firebase");
-                  }
-              } catch (error) {
-                  console.error("Error loading cart from Firebase:", error);
-              }
-          };
-
-          loadCartFromFirebase();
-      }
+    if (userId) {
+      const loadCartFromFirebase = async () => {
+        try {
+          const cartRef = doc(db, "carts", userId);
+          const cartDoc = await getDoc(cartRef);
+          if (cartDoc.exists()) {
+            const cartData = cartDoc.data();
+            dispatch(setCartItems(cartData.items || []));
+          }
+        } catch (error) {
+          console.error("Error loading cart from Firebase:", error);
+        }
+      };
+  
+      loadCartFromFirebase();
+    }
   }, [dispatch, userId]);
-
+  
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartItems));
+    const debounceSave = setTimeout(() => {
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+    }, 1000); // Adjust debounce timing
+  
+    return () => clearTimeout(debounceSave);
   }, [cartItems]);
+  
 
 // End Cart-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

@@ -71,10 +71,12 @@ export default function ProductDetails() {
           console.error("Error saving cart to Firebase:", error);
         }
       };
-      saveCartToFirebase();
+  
+      const debounceSave = setTimeout(() => saveCartToFirebase(), 1000); 
+      return () => clearTimeout(debounceSave);
     }
   }, [cartItems, userId]);
-
+  
   useEffect(() => {
     if (userId) {
       const loadCartFromFirebase = async () => {
@@ -89,9 +91,22 @@ export default function ProductDetails() {
           console.error("Error loading cart from Firebase:", error);
         }
       };
+  
       loadCartFromFirebase();
     }
   }, [dispatch, userId]);
+
+
+  
+  useEffect(() => {
+    const debounceSave = setTimeout(() => {
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+    }, 1000); // Adjust debounce timing
+  
+    return () => clearTimeout(debounceSave);
+  }, [cartItems]);
+  
+  
 
   // useEffect(() => {
   //   getProductData();

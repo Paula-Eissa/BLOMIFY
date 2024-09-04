@@ -43,43 +43,51 @@ const Cart = () => {
     .map((item) => item.price * item.quantity)
     .reduce((prevValue, currValue) => prevValue + currValue, 0);
 
-  useEffect(() => {
-    if (userId) {
-      const saveCartToFirebase = async () => {
-        try {
-          const cartRef = doc(db, "carts", userId);
-          await setDoc(cartRef, { items: cartItems });
-        } catch (error) {
-          console.error("Error saving cart to Firebase:", error);
-        }
-      };
-
-      saveCartToFirebase();
-    }
-  }, [cartItems, userId]);
-
-  useEffect(() => {
-    if (userId) {
-      const loadCartFromFirebase = async () => {
-        try {
-          const cartRef = doc(db, "carts", userId);
-          const cartDoc = await getDoc(cartRef);
-          if (cartDoc.exists()) {
-            const cartData = cartDoc.data();
-            dispatch(setCartItems(cartData.items || []));
+    useEffect(() => {
+      if (userId) {
+        const saveCartToFirebase = async () => {
+          try {
+            const cartRef = doc(db, "carts", userId);
+            await setDoc(cartRef, { items: cartItems });
+          } catch (error) {
+            console.error("Error saving cart to Firebase:", error);
           }
-        } catch (error) {
-          console.error("Error loading cart from Firebase:", error);
-        }
-      };
+        };
+    
+        const debounceSave = setTimeout(() => saveCartToFirebase(), 1000);
+        return () => clearTimeout(debounceSave);
+      }
+    }, [cartItems, userId]);
+    
 
-      loadCartFromFirebase();
-    }
-  }, [dispatch, userId]);
+    useEffect(() => {
+      if (userId) {
+        const loadCartFromFirebase = async () => {
+          try {
+            const cartRef = doc(db, "carts", userId);
+            const cartDoc = await getDoc(cartRef);
+            if (cartDoc.exists()) {
+              const cartData = cartDoc.data();
+              dispatch(setCartItems(cartData.items || []));
+            }
+          } catch (error) {
+            console.error("Error loading cart from Firebase:", error);
+          }
+        };
+    
+        loadCartFromFirebase();
+      }
+    }, [dispatch, userId]);
+    
 
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [cartItems]);
+    useEffect(() => {
+      const debounceSave = setTimeout(() => {
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+      }, 1000);
+    
+      return () => clearTimeout(debounceSave);
+    }, [cartItems]);
+    
 
   const navigate = useNavigate();
 

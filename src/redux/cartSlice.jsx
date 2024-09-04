@@ -16,23 +16,21 @@ const cartSlice = createSlice({
       return action.payload;
     },
     incrementQuantity(state, action) {
-      state = state.map((item) => {
+      return state.map((item) => {
         if (item.id === action.payload.id) {
-          item.quantity++;
+          return { ...item, quantity: item.quantity + 1 };
         }
         return item;
       });
     },
     decrementQuantity(state, action) {
-      state = state.map((item) => {
-        if (item.quantity !== 1) {
-          if (item.id === action.payload.id) {
-            item.quantity--;
-          }
+      return state.map((item) => {
+        if (item.id === action.payload.id && item.quantity > 1) {
+          return { ...item, quantity: item.quantity - 1 };
         }
         return item;
       });
-    },
+    },    
     clearCart() {
       return [];
     },
