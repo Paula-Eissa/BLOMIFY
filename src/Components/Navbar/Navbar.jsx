@@ -121,7 +121,7 @@ function Navbar() {
               loading="lazy"
             />
           </Link>
-          <Search />
+          {/* <Search /> */}
           {/* Left navigation links */}
           {/* Check if the lging in person is the admin or not */}
           {userId === adminId && userToken !== null ? <ul className="list-style-none me-auto  items-center flex flex-col ps-0 lg:flex-row"

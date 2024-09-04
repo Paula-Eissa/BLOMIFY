@@ -21,13 +21,7 @@ export default function Filter({data,filteration}) {
   };
   return <>
     <div>
-      <input 
-        type="text" 
-        className='' 
-        onChange={handleFilterarton}
-        placeholder='Search...' 
-        value={searchValue}
-      />
+zz
     </div>
   </>
 }
