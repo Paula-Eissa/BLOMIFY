@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import { db } from "../../firebase/firebase";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, onSnapshot, setDoc } from "firebase/firestore";
 import { Vortex } from "react-loader-spinner";
 import Image from '../../Assets/images/profile.jpg'
 import { Helmet } from "react-helmet";
@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 import { getAuth } from "firebase/auth";
 import { setCartItems } from "../../redux/cartSlice";
 import ScrollToTop from "../ScrollToTop/ScrollToTop";
-
+import Comment from "../Comment/Comment"
 
 export default function ProductDetails() {
   const [product, setProduct] = useState({});
@@ -28,14 +28,17 @@ export default function ProductDetails() {
         const productData = { ...productTemp.data(), id: productTemp.id };
 
         const reviewsCollectionRef = collection(doc(db, 'products', id), 'reviews');
-        const reviewsSnapshot = await getDocs(reviewsCollectionRef);
-        const reviewsData = reviewsSnapshot.docs.map(doc => doc.data());
+        const unsubscribe = onSnapshot(reviewsCollectionRef, (snapshot) => {
+          const reviewsData = snapshot.docs.map(doc => doc.data());
+          setReviews(reviewsData);
+        })
 
-        const totalRating = reviewsData.reduce((acc, comment) => acc + comment.rating, 0);
-        const averageRating = reviewsData.length > 0 ? totalRating / reviewsData.length : 0;
+        const totalRating = reviews.reduce((acc, comment) => acc + comment.rating, 0);
+        const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0;
 
         setProduct({ ...productData, rating: averageRating });
-        setReviews(reviewsData);
+        setReviews(reviews);
+        return () => unsubscribe();
       } catch (error) {
         console.log(error);
       } finally {
@@ -195,6 +198,7 @@ export default function ProductDetails() {
           </Helmet>
         </>
       )}
+      <Comment productId={id} />
       </ScrollToTop>
     </>
   );

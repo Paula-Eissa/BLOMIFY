@@ -51,7 +51,7 @@ export default function Register() {
       setIsLoading(false);
     }
     console.log(values);
-    localStorage.setItem("userdata", JSON.stringify(values));
+    // localStorage.setItem("userdata", JSON.stringify(values));
   }
 
 // End of registeration userData part -----------------------------------------------------------------------------------------------------------------------------
