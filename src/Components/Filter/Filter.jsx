@@ -19,6 +19,7 @@ export default function Filter({ data, filteration }) {
       filteration(filteredData);
     }
   };
+<<<<<<< .merge_file_a14532
   return (
     <>
       <div className="flex items-center justify-center w-full ">
@@ -32,4 +33,11 @@ export default function Filter({ data, filteration }) {
       </div>
     </>
   );
+=======
+  return <>
+    <div>
+zz
+    </div>
+  </>
+>>>>>>> .merge_file_a14148
 }

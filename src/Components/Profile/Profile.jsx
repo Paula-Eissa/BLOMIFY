@@ -154,7 +154,9 @@ const Profile = () => {
             <hr className="my-4 border-deep-burgundy" />
             {/* Buttons */}
             <div className="flex justify-between">
-              <button className="bg-deep-burgundy hover:bg-dusty-mauve text-white font-bold py-2 px-4 rounded">
+              <button
+              onClick={()=>navigate('/orders')}
+               className="bg-deep-burgundy hover:bg-dusty-mauve text-white font-bold py-2 px-4 rounded">
                 Order Summary
               </button>
               <button
