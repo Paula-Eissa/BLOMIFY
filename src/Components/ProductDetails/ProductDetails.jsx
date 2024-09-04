@@ -82,7 +82,7 @@ export default function ProductDetails() {
   }, [cartItems, userId]);
   
   useEffect(() => {
-    if (userId2) {
+    if (userId) {
       const loadCartFromFirebase = async () => {
         try {
           const cartRef = doc(db, "carts", userId2);
@@ -103,11 +103,11 @@ export default function ProductDetails() {
 
   
   useEffect(() => {
-    const debounceSave = setTimeout(() => {
+    const delulu = setTimeout(() => {
       localStorage.setItem('cart', JSON.stringify(cartItems));
-    }, 1000);
+    }, 1000); 
   
-    return () => clearTimeout(debounceSave);
+    return () => clearTimeout(delulu);
   }, [cartItems]);
   
   

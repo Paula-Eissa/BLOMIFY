@@ -54,8 +54,8 @@ const Cart = () => {
           }
         };
     
-        const debounceSave = setTimeout(() => saveCartToFirebase(), 1000);
-        return () => clearTimeout(debounceSave);
+        const delulu = setTimeout(() => saveCartToFirebase(), 1000);
+        return () => clearTimeout(delulu);
       }
     }, [cartItems, userId]);
     
@@ -81,11 +81,11 @@ const Cart = () => {
     
 
     useEffect(() => {
-      const debounceSave = setTimeout(() => {
+      const delulu = setTimeout(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
       }, 1000);
     
-      return () => clearTimeout(debounceSave);
+      return () => clearTimeout(delulu);
     }, [cartItems]);
     
 

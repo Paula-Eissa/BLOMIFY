@@ -1,17 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../redux/cartSlice";
-<<<<<<< HEAD
 import { doc, collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-=======
-import { db } from "../../firebase/firebase";
-import { doc, collection, addDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
->>>>>>> 2a1c8ff69acf9a3b6743511a200a556c20f9ee31
 
 const Payment = () => {
   const [cardNumber, setCardNumber] = useState("");
@@ -27,15 +20,6 @@ const Payment = () => {
   const userId = user ? user.uid : null;
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-  const cartItems = useSelector((state) => state.cart);
-  const auth = getAuth();
-  const user = auth.currentUser;
-  const userId = user ? user.uid : null;
-  const navigate = useNavigate();
-
-=======
->>>>>>> 2a1c8ff69acf9a3b6743511a200a556c20f9ee31
   const saveOrderToFirebase = async () => {
     if (userId && cartItems.length > 0) {
       try {
@@ -43,32 +27,12 @@ const Payment = () => {
         const ordersRef = collection(userRef, "orders");
         await addDoc(ordersRef, {
           items: cartItems,
-<<<<<<< HEAD
-          paymentMethod: metthodtype ? "Cash on Delivery" : "Online",
-=======
           paymentMethod: methodType ? "Cash on Delivery" : "Online",
->>>>>>> 2a1c8ff69acf9a3b6743511a200a556c20f9ee31
           orderDate: new Date(),
         });
       } catch (error) {
         console.error("Error saving order to Firebase:", error);
       }
-<<<<<<< HEAD
-    }
-  };
-
-  const handlePayment = async (method) => {
-    if (method === "cash") {
-      setmethodtype(true);
-      dispatch(clearCart());
-    } else {
-      setmethodtype(false);
-    }
-
-    setIsLoading(true);
-
-    await saveOrderToFirebase();
-=======
     }
   };
 
@@ -82,7 +46,6 @@ const Payment = () => {
     setIsLoading(true);
 
     await saveOrderToFirebase(); 
->>>>>>> 2a1c8ff69acf9a3b6743511a200a556c20f9ee31
 
     setTimeout(() => {
       setIsLoading(false);
@@ -152,29 +115,8 @@ return (
             </div>
           </div>
 
-<<<<<<< HEAD
-            {!isLoading ? (
-              <>
-                <button
-                  type="button"
-                  onClick={() => handlePayment("online")}
-                  className="w-full py-3 text-white rounded-tr-full rounded-bl-full bg-deep-burgundy rounded-lg hover:bg-dusty-mauve transition"
-                >
-                  Pay Now
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handlePayment("cash")}
-                  className="w-full py-3 text-white rounded-tr-full rounded-bl-full bg-deep-burgundy rounded-lg hover:bg-dusty-mauve transition"
-                >
-                  Cash On Delivary
-                </button>
-              </>
-            ) : (
-=======
           {!isLoading ? (
             <>
->>>>>>> 2a1c8ff69acf9a3b6743511a200a556c20f9ee31
               <button
                 type="button"
                 onClick={() => handlePayment("online")}
@@ -182,30 +124,6 @@ return (
               >
                 Pay Now
               </button>
-<<<<<<< HEAD
-            )}
-          </form>
-        ) : !metthodtype ? (
-          <div className="text-cente">
-            <h2 className="text-xl font-semibold text-deep-burgundy mb-4">
-              Payment Successful!
-            </h2>
-            <p className="text-dark-brownish">
-              Thank you for your purchase. Your transaction has been completed.
-            </p>
-          </div>
-        ) : (
-          <>
-            <div className="text-center">
-              <h2 className="text-xl font-semibold text-deep-burgundy mb-4">
-                you can pay cash on delivary
-              </h2>
-              <p className="text-dark-brownish">Thank you for your purchase</p>
-            </div>
-          </>
-        )}
-      </div>
-=======
               <button
                 type="button"
                 onClick={() => handlePayment("cash")}
@@ -242,7 +160,6 @@ return (
           </p>
         </div>
       )}
->>>>>>> 2a1c8ff69acf9a3b6743511a200a556c20f9ee31
     </div>
   </div>
 );
