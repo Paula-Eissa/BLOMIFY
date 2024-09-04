@@ -2,7 +2,6 @@
 // import Style from './Dashboard.module.css'
 // export default function Dashboard() {
 //   return <>
-<<<<<<< .merge_file_a10708
 //     <iframe src="http://localhost:3001/admin/default" width="100%" height="100%" style="border:none;"></iframe>
 //   </>
 // }
@@ -17,24 +16,6 @@ function Dashboard() {
         width="100%"
         height="700px"
         style={{ border: "none" }}
-=======
-//     <iframe src="http://localhost:3001/admin/default" width="100%" height="100%" style="border:none;"></iframe> 
-//   </>
-// }
-
-
-
-import React from 'react';
-
-function Dashboard() {
-  return (
-    <div >
-      <iframe 
-        src="http://localhost:3002/admin/default" 
-        width="100%" 
-        height="700px" 
-        style={{ border: 'none' }} 
->>>>>>> .merge_file_a13592
         title="Dashboard"
       />
     </div>

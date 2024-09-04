@@ -25,10 +25,6 @@ function Navbar() {
   // useEffect(() => {
   //   logOut();
   // }, []);
-<<<<<<< .merge_file_a01544
-=======
-
->>>>>>> .merge_file_a21120
 
   // End of Logout part--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -124,7 +120,7 @@ function Navbar() {
               loading="lazy"
             />
           </Link>
-          {/* <Search /> */}
+          <Search />
           {/* Left navigation links */}
           {/* Check if the lging in person is the admin or not */}
           {userId === adminId && userToken !== null ? (
