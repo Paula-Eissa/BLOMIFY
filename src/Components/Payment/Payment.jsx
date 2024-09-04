@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../redux/cartSlice";
+import { doc, collection, addDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { db } from "../../firebase/firebase";
 
 const Payment = () => {
   const [cardNumber, setCardNumber] = useState("");
@@ -11,11 +15,40 @@ const Payment = () => {
   const [metthodtype, setmethodtype] = useState(false);
   const dispatch = useDispatch();
 
-  const handlePayment = (method) => {
+  const cartItems = useSelector((state) => state.cart);
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const userId = user ? user.uid : null;
+  const navigate = useNavigate();
+
+  const saveOrderToFirebase = async () => {
+    if (userId && cartItems.length > 0) {
+      try {
+        const userRef = doc(db, "users", userId);
+        const ordersRef = collection(userRef, "orders");
+        await addDoc(ordersRef, {
+          items: cartItems,
+          paymentMethod: metthodtype ? "Cash on Delivery" : "Online",
+          orderDate: new Date(),
+        });
+      } catch (error) {
+        console.error("Error saving order to Firebase:", error);
+      }
+    }
+  };
+
+  const handlePayment = async (method) => {
     if (method === "cash") {
       setmethodtype(true);
+      dispatch(clearCart());
+    } else {
+      setmethodtype(false);
     }
+
     setIsLoading(true);
+
+    await saveOrderToFirebase();
+
     setTimeout(() => {
       setIsLoading(false);
       setPaymentSuccess(true);
@@ -87,14 +120,14 @@ const Payment = () => {
               <>
                 <button
                   type="button"
-                  onClick={()=>handlePayment("online")}
+                  onClick={() => handlePayment("online")}
                   className="w-full py-3 text-white rounded-tr-full rounded-bl-full bg-deep-burgundy rounded-lg hover:bg-dusty-mauve transition"
                 >
                   Pay Now
                 </button>
                 <button
                   type="button"
-                  onClick={()=>handlePayment("cash")}
+                  onClick={() => handlePayment("cash")}
                   className="w-full py-3 text-white rounded-tr-full rounded-bl-full bg-deep-burgundy rounded-lg hover:bg-dusty-mauve transition"
                 >
                   Cash On Delivary
@@ -109,7 +142,7 @@ const Payment = () => {
               </button>
             )}
           </form>
-        ) :!metthodtype? (
+        ) : !metthodtype ? (
           <div className="text-cente">
             <h2 className="text-xl font-semibold text-deep-burgundy mb-4">
               Payment Successful!
@@ -118,17 +151,16 @@ const Payment = () => {
               Thank you for your purchase. Your transaction has been completed.
             </p>
           </div>
-        ):<>
-        <div className="text-center">
-            <h2 className="text-xl font-semibold text-deep-burgundy mb-4">
-             you can pay cash on delivary
-            </h2>
-            <p className="text-dark-brownish">
-              Thank you for your purchase
-            </p>
-          </div>
-        
-        </>}
+        ) : (
+          <>
+            <div className="text-center">
+              <h2 className="text-xl font-semibold text-deep-burgundy mb-4">
+                you can pay cash on delivary
+              </h2>
+              <p className="text-dark-brownish">Thank you for your purchase</p>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
