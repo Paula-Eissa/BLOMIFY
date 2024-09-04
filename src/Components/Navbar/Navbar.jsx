@@ -1,23 +1,24 @@
 import { Collapse, Dropdown, initTWE } from "tw-elements";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Assets/images/logo.png";
 import { UserContext } from "../../Context/UserContext";
 import Image from "../../Assets/images/profile.jpg";
 import { useSelector } from "react-redux";
-import Search  from "../Search/Search";
+import Search from "../Search/Search";
 
 function Navbar() {
-// Log out part and logedin user data --------------------------------------------------------------------------------------------------------------------------------------------------------------
+  // Log out part and logedin user data --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  let { userToken, userId ,adminId,setUserToken,setUserId } = useContext(UserContext);
+  let { userToken, userId, adminId, setUserToken, setUserId } =
+    useContext(UserContext);
   let navigate = useNavigate();
 
   function logOut() {
     localStorage.removeItem("userToken");
     localStorage.removeItem("userId");
     setUserToken(null);
-    setUserId(null)
+    setUserId(null);
     navigate("./login");
   }
 
@@ -25,10 +26,9 @@ function Navbar() {
   //   logOut();
   // }, []);
 
+  // End of Logout part--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// End of Logout part--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-// Ocassion Menu DropDown code---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  // Ocassion Menu DropDown code---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const occasions = [
     "All bouquets",
@@ -71,8 +71,7 @@ function Navbar() {
   // Initialize tw-elements
   initTWE({ Collapse, Dropdown });
 
-// End of ocassion part ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+  // End of ocassion part ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   return (
     <nav className="relative flex w-full items-center justify-between opacity-9 bg-dusty-mauve py-2 shadow-dark-mild dark:bg-deep-burgundy ">
@@ -124,101 +123,103 @@ function Navbar() {
           {/* <Search /> */}
           {/* Left navigation links */}
           {/* Check if the lging in person is the admin or not */}
-          {userId === adminId && userToken !== null ? <ul className="list-style-none me-auto  items-center flex flex-col ps-0 lg:flex-row"
-            data-twe-navbar-nav-ref
-          >
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              {/* Home link */}
-              <Link
-                className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                to="/"
-                data-twe-nav-link-ref
-              >
-                Home
-              </Link>
-            </li>
-            {/* Shop link */}
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <Link
-                className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                to="/products"
-                data-twe-nav-link-ref
-              >
-                Shop
-              </Link>
-            </li>
-            {/* ocassion link */}
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <div
-                ref={dropdownRef}
-                className={`dropdown  ${
-                  isOpen ? "dropdown-open dropdown-end" : "dropdown-end"
-                } text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 `}
-                onClick={toggleDropdown}
-              >
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="btn btn-ghost rounded-btn font-medium text-base"
+          {userId === adminId && userToken !== null ? (
+            <ul
+              className="list-style-none me-auto  items-center flex flex-col ps-0 lg:flex-row"
+              data-twe-navbar-nav-ref
+            >
+              <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                {/* Home link */}
+                <Link
+                  className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+                  to="/"
+                  data-twe-nav-link-ref
                 >
-                  Occasions
-                  <svg
-                    class="w-2.5 h-2.5 mt-1"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 10 6"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m1 1 4 4 4-4"
-                    />
-                  </svg>
-                </div>
-                {isOpen && (
-                  <ul
+                  Home
+                </Link>
+              </li>
+              {/* Shop link */}
+              <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                <Link
+                  className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+                  to="/products"
+                  data-twe-nav-link-ref
+                >
+                  Shop
+                </Link>
+              </li>
+              {/* ocassion link */}
+              <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                <div
+                  ref={dropdownRef}
+                  className={`dropdown  ${
+                    isOpen ? "dropdown-open dropdown-end" : "dropdown-end"
+                  } text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 `}
+                  onClick={toggleDropdown}
+                >
+                  <div
                     tabIndex={0}
-                    className="menu dropdown-content bg-pale-grayish w-36 rounded-box z-[1] mt-4 ml-8 p-1 shadow"
+                    role="button"
+                    className="btn btn-ghost rounded-btn font-medium text-base"
                   >
-                    {occasions.map((item, index) => (
-                      <li key={index}>
-                        <Link
-                          to="./products"
-                          state={{ message: item }}
-                          onClick={closeDropdown} // Close dropdown on item click
-                        >
-                          {item}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </li>
-            {/* About us link */}
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <Link
-                className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                to="/about"
-                data-twe-nav-link-ref
-              >
-                About Us
-              </Link>
-            </li>
-            {/* Contact us link */}
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <Link
-                className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                to="/contactus"
-                data-twe-nav-link-ref
-              >
-                Contact Us
-              </Link>
-            </li>
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                    Occasions
+                    <svg
+                      class="w-2.5 h-2.5 mt-1"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 10 6"
+                    >
+                      <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="m1 1 4 4 4-4"
+                      />
+                    </svg>
+                  </div>
+                  {isOpen && (
+                    <ul
+                      tabIndex={0}
+                      className="menu dropdown-content bg-pale-grayish w-36 rounded-box z-[1] mt-4 ml-8 p-1 shadow"
+                    >
+                      {occasions.map((item, index) => (
+                        <li key={index}>
+                          <Link
+                            to="./products"
+                            state={{ message: item }}
+                            onClick={closeDropdown} // Close dropdown on item click
+                          >
+                            {item}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </li>
+              {/* About us link */}
+              <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                <Link
+                  className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+                  to="/about"
+                  data-twe-nav-link-ref
+                >
+                  About Us
+                </Link>
+              </li>
+              {/* Contact us link */}
+              <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                <Link
+                  className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+                  to="/contactus"
+                  data-twe-nav-link-ref
+                >
+                  Contact Us
+                </Link>
+              </li>
+              <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
                 <Link
                   className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
                   to="/dashboard"
@@ -226,103 +227,106 @@ function Navbar() {
                 >
                   Dashboard
                 </Link>
-            </li>
-          </ul> : <ul className="list-style-none me-auto  items-center flex flex-col ps-0 lg:flex-row"
-            data-twe-navbar-nav-ref
-          >
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              {/* Home link */}
-              <Link
-                className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                to="/"
-                data-twe-nav-link-ref
-              >
-                Home
-              </Link>
-            </li>
-            {/* Shop link */}
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <Link
-                className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                to="/products"
-                data-twe-nav-link-ref
-              >
-                Shop
-              </Link>
-            </li>
-            {/* ocassion link */}
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <div
-                ref={dropdownRef}
-                className={`dropdown  ${
-                  isOpen ? "dropdown-open dropdown-end" : "dropdown-end"
-                } text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 `}
-                onClick={toggleDropdown}
-              >
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="btn btn-ghost rounded-btn font-medium text-base"
-                >
-                  Occasions
-                  <svg
-                    class="w-2.5 h-2.5 mt-1"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 10 6"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m1 1 4 4 4-4"
-                    />
-                  </svg>
-                </div>
-                {isOpen && (
-                  <ul
-                    tabIndex={0}
-                    className="menu dropdown-content bg-pale-grayish w-36 rounded-box z-[1] mt-4 ml-8 p-1 shadow"
-                  >
-                    {occasions.map((item, index) => (
-                      <li key={index}>
-                        <Link
-                          to="./products"
-                          state={{ message: item }}
-                          onClick={closeDropdown} // Close dropdown on item click
-                        >
-                          {item}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </li>
-            {/* About us link */}
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <Link
-                className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                to="/about"
-                data-twe-nav-link-ref
-              >
-                About Us
-              </Link>
-            </li>
-            {/* Contact us link */}
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <Link
-                className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                to="/contactus"
-                data-twe-nav-link-ref
-              >
-                Contact Us
-              </Link>
-            </li> 
+              </li>
             </ul>
-            }
+          ) : (
+            <ul
+              className="list-style-none me-auto  items-center flex flex-col ps-0 lg:flex-row"
+              data-twe-navbar-nav-ref
+            >
+              <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                {/* Home link */}
+                <Link
+                  className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+                  to="/"
+                  data-twe-nav-link-ref
+                >
+                  Home
+                </Link>
+              </li>
+              {/* Shop link */}
+              <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                <Link
+                  className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+                  to="/products"
+                  data-twe-nav-link-ref
+                >
+                  Shop
+                </Link>
+              </li>
+              {/* ocassion link */}
+              <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                <div
+                  ref={dropdownRef}
+                  className={`dropdown  ${
+                    isOpen ? "dropdown-open dropdown-end" : "dropdown-end"
+                  } text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 `}
+                  onClick={toggleDropdown}
+                >
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost rounded-btn font-medium text-base"
+                  >
+                    Occasions
+                    <svg
+                      class="w-2.5 h-2.5 mt-1"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 10 6"
+                    >
+                      <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="m1 1 4 4 4-4"
+                      />
+                    </svg>
+                  </div>
+                  {isOpen && (
+                    <ul
+                      tabIndex={0}
+                      className="menu dropdown-content bg-pale-grayish w-36 rounded-box z-[1] mt-4 ml-8 p-1 shadow"
+                    >
+                      {occasions.map((item, index) => (
+                        <li key={index}>
+                          <Link
+                            to="./products"
+                            state={{ message: item }}
+                            onClick={closeDropdown} // Close dropdown on item click
+                          >
+                            {item}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </li>
+              {/* About us link */}
+              <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                <Link
+                  className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+                  to="/about"
+                  data-twe-nav-link-ref
+                >
+                  About Us
+                </Link>
+              </li>
+              {/* Contact us link */}
+              <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                <Link
+                  className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+                  to="/contactus"
+                  data-twe-nav-link-ref
+                >
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
+          )}
         </div>
 
         {/* Right elements */}
@@ -331,33 +335,37 @@ function Navbar() {
         <div className="relative flex  items-center space-x-4">
           {userToken !== null ? (
             <>
-              <Link
-                className="flex items-center text-grayish-blue dark:text-light-beige"
-                to="/cart"
-                id="dropdownMenuButton1"
-                role="button"
-                data-tw-dropdown-toggle-ref
-                aria-expanded="false"
-              >
-                <span
-                  className="[&>svg]:w-5 text-deep-burgundy hover:text-light-pink"
-                  id="cart"
+              {userId !== adminId ? (
+                <Link
+                  className="flex items-center text-grayish-blue dark:text-light-beige"
+                  to="/cart"
+                  id="dropdownMenuButton1"
+                  role="button"
+                  data-tw-dropdown-toggle-ref
+                  aria-expanded="false"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
+                  <span
+                    className="[&>svg]:w-5 text-deep-burgundy hover:text-light-pink"
+                    id="cart"
                   >
-                    <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
-                  </svg>
-                </span>
-                <span
-                  htmlFor="cart"
-                  className="t-0 absolute left-0 mb-4 ms-4 rounded-full bg-red-600 px-[0.35em] py-[0.15em] text-[0.6rem] font-bold leading-none text-light-beige"
-                >
-                  {cartItems.length}
-                </span>
-              </Link>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+                    </svg>
+                  </span>
+                  <span
+                    htmlFor="cart"
+                    className="t-0 absolute left-0 mb-4 ms-4 rounded-full bg-red-600 px-[0.35em] py-[0.15em] text-[0.6rem] font-bold leading-none text-light-beige"
+                  >
+                    {cartItems.length}
+                  </span>
+                </Link>
+              ) : (
+                ""
+              )}
 
               {/* Second dropdown container */}
               <div

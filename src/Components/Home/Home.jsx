@@ -128,11 +128,11 @@ export default function Home() {
             <div className="card-body">
               <h2 className="card-title">{item.cat}</h2>
               <p>{item.description}</p>
-              <div className="card-actions justify-end">
+              {/* <div className="card-actions justify-end">
                 <button className="rounded-tr-3xl p-2 rounded-bl-3xl  hover:bg-dusty-mauve bg-deep-burgundy ">
                   <p className="my-1 text-red-50">Go Now</p>
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         ))}

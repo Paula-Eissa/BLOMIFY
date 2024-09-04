@@ -13,7 +13,7 @@ import { doc, setDoc } from "firebase/firestore";
 export default function Register() {
   let navigate = useNavigate();
 
-// registeration userData part -----------------------------------------------------------------------------------------------------------------------------
+  // registeration userData part -----------------------------------------------------------------------------------------------------------------------------
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +40,7 @@ export default function Register() {
         email: values.email,
         password: values.password,
       });
+      
 
       const user = userCredential.user;
       localStorage.setItem("userToken", user.accessToken); // Or any token mechanism you use
@@ -51,19 +52,18 @@ export default function Register() {
       setIsLoading(false);
     }
     console.log(values);
-    localStorage.setItem("userdata", JSON.stringify(values));
+    // localStorage.setItem("userdata", JSON.stringify(values));
   }
 
-// End of registeration userData part -----------------------------------------------------------------------------------------------------------------------------
+  // End of registeration userData part -----------------------------------------------------------------------------------------------------------------------------
 
-
-// using yup & formik part to validate login data and forms ----------------------------------------------------------------------------------------------------------------------
+  // using yup & formik part to validate login data and forms ----------------------------------------------------------------------------------------------------------------------
 
   let phoneRegExp = /^(010|011|012|015)\d{8}$/;
   let validationSchema = Yup.object({
     name: Yup.string()
       .min(3, "Name minLength is 3")
-      .max(14, "Name maxLength is 14")
+      .max(30, "Name maxLength is 14")
       .required("Name is required"),
     phone: Yup.string().matches(phoneRegExp, "Phone number is not valid"),
     email: Yup.string().email("Email is invalid").required("Email is required"),
@@ -90,7 +90,7 @@ export default function Register() {
     onSubmit: registerSubmit,
   });
 
-// End part of formik and yup--------------------------------------------------------------------------------------------------------------------------------------
+  // End part of formik and yup--------------------------------------------------------------------------------------------------------------------------------------
 
   return (
     <>
