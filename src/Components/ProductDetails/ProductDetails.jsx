@@ -36,7 +36,7 @@ export default function ProductDetails() {
 
         const totalRating = reviews.reduce((acc, comment) => acc + comment.rating, 0);
         const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0;
-
+        product.rating = averageRating
         setProduct({ ...productData, rating: averageRating });
         setReviews(reviews);
         return () => unsubscribe();
