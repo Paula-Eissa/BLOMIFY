@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../redux/cartSlice";
-import { doc, collection, addDoc } from "firebase/firestore";
+import { doc, collection, addDoc , setDoc} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
+
+
 
 const Payment = () => {
   const [cardNumber, setCardNumber] = useState("");
@@ -36,6 +38,17 @@ const Payment = () => {
     }
   };
 
+  const clearCartInFirebase = async () => {
+    if (userId) {
+      try {
+        const cartRef = doc(db, "carts", userId);
+        await setDoc(cartRef, { items: [] });
+      } catch (error) {
+        console.error("Error clearing cart in Firebase:", error);
+      }
+    }
+  };
+
   const handlePayment = async (method) => {
     if (method === "cash") {
       setMethodType(true);
@@ -45,13 +58,14 @@ const Payment = () => {
 
     setIsLoading(true);
 
-    await saveOrderToFirebase(); 
+    await saveOrderToFirebase();
 
-    setTimeout(() => {
+    setTimeout(async() => {
       setIsLoading(false);
       setPaymentSuccess(true);
       dispatch(clearCart());
-    }, 2000);
+      await clearCartInFirebase();
+    }, 1000);
   };
 
 
