@@ -32,13 +32,10 @@ export default function ProductDetails() {
         const unsubscribe = onSnapshot(reviewsCollectionRef, (snapshot) => {
           const reviewsData = snapshot.docs.map(doc => doc.data());
           setReviews(reviewsData);
+
+          setProduct({ ...productData });
         })
 
-        const totalRating = reviews.reduce((acc, comment) => acc + comment.rating, 0);
-        const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0;
-        product.rating = averageRating
-        setProduct({ ...productData, rating: averageRating });
-        setReviews(reviews);
         return () => unsubscribe();
       } catch (error) {
         console.log(error);
@@ -48,6 +45,18 @@ export default function ProductDetails() {
     };
     getProductData();
   }, [id]);
+
+  useEffect(() => {
+    if (reviews.length > 0) {
+      const totalRating = reviews.reduce((acc, comment) => acc + comment.rating, 0);
+      const averageRating = totalRating / reviews.length;
+  
+      setProduct(prevProduct => ({
+        ...prevProduct,
+        rating: averageRating
+      }));
+    }
+  }, [reviews]);
 
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
