@@ -20,6 +20,7 @@ export default function Login() {
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPass,setShowPass]=useState(false)
   setTimeout(() => {
     if (error) {
       setError(null);
@@ -69,7 +70,7 @@ export default function Login() {
     password: Yup.string()
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-        "Password must be at least 6 characters long and include both letters and numbers"
+        "Password is incorrect"
       )
       .required("Password is required"),
   });
@@ -153,8 +154,10 @@ export default function Login() {
                 </label>
                 <div className="relative flex items-center">
                   <input
+                  
+                  
                     name="password"
-                    type="password"
+                    type={showPass ? "text" : "password"}
                     value={formik.values.password}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -162,18 +165,34 @@ export default function Login() {
                     className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-deep-burgundy"
                     placeholder="Enter password"
                   />
+                  <div onClick={()=>{setShowPass(!showPass)}}>
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="#bbb"
-                    stroke="#bbb"
-                    className="w-[18px] h-[18px] absolute right-4 cursor-pointer"
-                    viewBox="0 0 128 128"
-                  >
+                  
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="#bbb"
+                  stroke="#bbb"
+                  className="w-[18px] h-[18px] absolute right-4 cursor-pointer"
+                  viewBox="0 0 128 128"
+                >
+                  {showPass?
                     <path
-                      d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z"
-                      data-original="#000000"
-                    ></path>
-                  </svg>
+                    d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z"
+                    data-original="#000000"
+                  ></path>
+                
+                :
+                <>
+                 <path
+                     d="M64 24C22.127 24 1.367 60.504.504 62.057a4 4 0 0 0 0 3.887C1.367 67.496 22.127 104 64 104s62.633-36.504 63.496-38.057a4 4 0 0 0 0-3.887C126.633 60.504 105.873 24 64 24zM64 96c-31.955 0-50.553-24.775-55.293-31.994C13.447 56.775 32.045 32 64 32c31.955 0 50.553 24.775 55.293 31.994C114.535 71.205 95.854 96 64 96z"
+                 ></path>
+                <path
+                     d="M85.463 85.463l-42.926-42.926-5.657 5.657 42.926 42.926 5.657-5.657z"
+                ></path>
+                </>
+                }
+                </svg>
+                  </div>
+                  
                 </div>
                 {formik.errors.password && formik.touched.password ? (
                   <div className="text-red-600 mb-4">

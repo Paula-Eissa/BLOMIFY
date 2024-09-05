@@ -17,6 +17,7 @@ export default function Register() {
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPass,setShowPass]=useState(false);
   setTimeout(() => {
     if (error) {
       setError(null);
@@ -63,7 +64,7 @@ export default function Register() {
   let validationSchema = Yup.object({
     name: Yup.string()
       .min(3, "Name minLength is 3")
-      .max(30, "Name maxLength is 14")
+      .max(30, "Name maxLength is 30")
       .required("Name is required"),
     phone: Yup.string().matches(phoneRegExp, "Phone number is not valid"),
     email: Yup.string().email("Email is invalid").required("Email is required"),
@@ -74,7 +75,7 @@ export default function Register() {
       )
       .required("Password is required"),
     rePassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Passwords must match")
+      .oneOf([Yup.ref("password")], "Passwords is incorrect")
       .required("Confirm Password is required"),
   });
 
@@ -228,6 +229,7 @@ export default function Register() {
                       value={formik.values.rePassword}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
+                      
                       required
                       className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-deep-burgundy"
                       placeholder="Confirm password"
