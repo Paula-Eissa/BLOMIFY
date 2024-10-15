@@ -73,11 +73,12 @@ export default function Occasion() {
   
   const dispatch = useDispatch();
 
-  const addCart = (item)=> {
-    dispatch(addToCart(item));
-    toast.success(`${item.name} added to cart`)
-  }
-
+  const addCart = (item) => {
+    if (!cartItems.some((cartItem) => cartItem.id === item.id)) {
+      dispatch(addToCart(item));
+      toast.success(`${item.name} added to cart`);
+    }
+  };
 
   const auth = getAuth();
   const user = auth.currentUser;
@@ -197,7 +198,11 @@ export default function Occasion() {
                           // style={{ backgroundColor: "#4C1B1B", color: "#E8E1DA" }}
                           className="rounded-tr-full rounded-bl-full w-2/3 justify-self-center  hover:bg-dusty-mauve bg-deep-burgundy "
                         >
-                          <p className="my-1 text-red-50">Add to Cart</p>
+                          <p className="my-1 text-red-50">
+                          {cartItems.some((cartItem) => cartItem.id === product.id)
+                            ? "Added to Cart"
+                            : "Add to Cart"}
+                        </p>
                         </button>
                       </div>
                   </div>

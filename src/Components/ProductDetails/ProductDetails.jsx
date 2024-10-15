@@ -61,10 +61,18 @@ export default function ProductDetails() {
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+  const isInCart = cartItems.some((cartItem) => cartItem.id === product.id);
+
+  // Add to cart function
   const addCart = (item) => {
-    dispatch(addToCart(item));
-    toast.success("Added to cart");
+    if (!isInCart) {
+      dispatch(addToCart(item));
+      toast.success(`${item.name} added to cart`);
+    } else {
+      toast.error(`${item.name} is already in the cart`);
+    }
   };
+
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
@@ -212,7 +220,7 @@ export default function ProductDetails() {
                       onClick={() => addCart(product)}
                       className="bg-deep-burgundy text-white rounded-tr-full rounded-bl-full py-2 px-8 mt-4 hover:bg-dusty-mauve transition"
                     >
-                      Add to cart
+                      {isInCart ? "Already in Cart" : "Add to Cart"}
                     </button>
                   )}
                 </div>
